@@ -127,7 +127,7 @@ public class APKExpansionPolicy implements Policy {
      * @param rawData the raw server response data
      */
     public void processServerResponse(int response,
-            com.google.android.vending.licensing.ResponseData rawData) {
+            ResponseData rawData) {
 
         // Update retry counter
         if (response != Policy.RETRY) {

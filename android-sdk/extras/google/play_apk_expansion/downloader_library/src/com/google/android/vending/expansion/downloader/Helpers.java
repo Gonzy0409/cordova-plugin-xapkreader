@@ -247,7 +247,7 @@ public class Helpers {
             if (deleteFileOnMismatch) {
                 // delete the file --- we won't be able to resume
                 // because we cannot confirm the integrity of the file
-                fileForNewFile.delete();
+               fileForNewFile.delete();
             }
         }
         return false;

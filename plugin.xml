@@ -38,7 +38,7 @@
   <preference name="XAPK_AUTO_RELOAD" default="false" />
   <preference name="XAPK_PROGRESS_FORMAT" default="percent" />
 
-  <resource-file src="res/values/xapkreader.xml" target-dir="res/values/xapkreader.xml" />
+  <source-file src="res/values/xapkreader.xml" target-dir="res/values" />
   <config-file target="res/values/xapkreader.xml" parent="/*">
    <string name="xapk_expansion_authority">$XAPK_EXPANSION_AUTHORITY</string>
    <string name="xapk_google_play_public_key">$XAPK_PUBLIC_KEY</string>
@@ -65,9 +65,9 @@
   <source-file src="src/android/XAPKReader.java"             target-dir="src/com/flyingsoftgames/xapkreader" />
   <source-file src="src/android/XAPKZipResourceFile.java"    target-dir="src/com/flyingsoftgames/xapkreader" />
   
-   <framework src="android-sdk/extras/google/play_apk_expansion/downloader_library" custom="true"/>
-  <framework src="android-sdk/extras/google/play_licensing/library" custom="true" />
-  <framework src="android-sdk/extras/google/play_licensing/zip_file" custom="true" />
+   <framework src="android-sdk/extras/google/marketing_apk_expansion/downloader_library" custom="true"/>
+  <framework src="android-sdk/extras/google/marketing_licensing/library" custom="true" />
+  <framework src="android-sdk/extras/google/marketing_apk_expansion/zip_file" custom="true" />
   <!--<framework src="android-sdk/extras/google/ExpansionLibrary" custom="true" />-->
   
   <config-file target="AndroidManifest.xml" parent="/manifest">

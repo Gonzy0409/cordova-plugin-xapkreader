@@ -4,8 +4,8 @@ import org.apache.cordova.CordovaInterface;
 import org.apache.cordova.CordovaPlugin;
 import org.apache.cordova.CordovaWebView;
 import org.apache.cordova.CallbackContext;
-import org.apache.cordova.CordovaPlugin;
 import org.apache.cordova.PluginResult;
+
 
 import android.content.ContentResolver;
 import android.content.Context;
@@ -37,23 +37,24 @@ public class XAPKReader extends CordovaPlugin {
 
         String packageName = cordova.getActivity().getPackageName();
 
+
         // Get some data from the xapkreader.xml file.
         String[][] xmlData = new String[][]{
-            {"xapk_main_version", "integer"},
-            {"xapk_patch_version", "integer"},
-            {"xapk_main_file_size", "integer", "long"},
-            {"xapk_patch_file_size", "integer", "long"},
-            {"xapk_expansion_authority", "string"},
-            {"xapk_text_downloading_assets", "string"},
-            {"xapk_text_preparing_assets", "string"},
-            {"xapk_text_download_failed", "string"},
-            {"xapk_text_error", "string"},
-            {"xapk_text_close", "string"},
-            {"xapk_google_play_public_key", "string"},
-            {"xapk_auto_download", "bool"},
-            {"xapk_auto_permission", "bool"},
-            {"xapk_auto_reload", "bool"},
-            {"xapk_progress_format", "string"}
+                {"xapk_main_version", "integer"},
+                {"xapk_patch_version", "integer"},
+                {"xapk_main_file_size", "string", "long"},
+                {"xapk_patch_file_size", "string", "long"},
+                {"xapk_expansion_authority", "string"},
+                {"xapk_text_downloading_assets", "string"},
+                {"xapk_text_preparing_assets", "string"},
+                {"xapk_text_download_failed", "string"},
+                {"xapk_text_error", "string"},
+                {"xapk_text_close", "string"},
+                {"xapk_google_play_public_key", "string"},
+                {"xapk_auto_download", "bool"},
+                {"xapk_auto_permission", "bool"},
+                {"xapk_auto_reload", "bool"},
+                {"xapk_progress_format", "string"}
         };
         int curlen = xmlData.length;
         for (int i = 0; i < curlen; i++) {
@@ -63,18 +64,19 @@ public class XAPKReader extends CordovaPlugin {
                 continue;
             }
             if (xmlData[i][1] == "string") {
-                bundle.putString(xmlData[i][0], cordova.getActivity().getResources().getString(currentId));
-                continue;
-            }
-            if (xmlData[i][1] == "integer") {
-                if ((xmlData[i].length == 2) || (xmlData[i][2] == "integer")) {
-                    bundle.putInt(xmlData[i][0], cordova.getActivity().getResources().getInteger(currentId));
+                if ((xmlData[i].length == 2)) {
+                    bundle.putString(xmlData[i][0], cordova.getActivity().getResources().getString(currentId));
                     continue;
                 }
                 if (xmlData[i][2] == "long") {
-                    bundle.putLong(xmlData[i][0], cordova.getActivity().getResources().getInteger(currentId));
+                    long val = Long.parseLong(cordova.getActivity().getResources().getString(currentId));
+                    bundle.putLong(xmlData[i][0], val);
                     continue;
                 }
+            }
+            if (xmlData[i][1] == "integer") {
+                bundle.putInt(xmlData[i][0], cordova.getActivity().getResources().getInteger(currentId));
+                continue;
             }
         }
 
@@ -162,4 +164,6 @@ public class XAPKReader extends CordovaPlugin {
             }
         });
     }
+
+
 }

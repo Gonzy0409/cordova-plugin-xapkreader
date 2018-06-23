@@ -14,7 +14,7 @@
 //
  
  // Modifications: syntax, formatting, and making pesky addPatchFile public...
- 
+
 package com.flyingsoftgames.xapkreader;
 
 import android.content.res.AssetFileDescriptor;

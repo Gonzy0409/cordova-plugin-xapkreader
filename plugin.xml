@@ -53,8 +53,8 @@
             <string name="xapk_text_close">$XAPK_TEXT_CLOSE</string>
             <integer name="xapk_main_version">$XAPK_MAIN_VERSION</integer>
             <integer name="xapk_patch_version">$XAPK_PATCH_VERSION</integer>
-            <string name="xapk_main_file_size">$XAPK_MAIN_FILESIZE</integer>
-            <string name="xapk_patch_file_size">$XAPK_PATCH_FILESIZE</integer>
+            <string name="xapk_main_file_size">$XAPK_MAIN_FILESIZE</string>
+            <string name="xapk_patch_file_size">$XAPK_PATCH_FILESIZE</string>
             <bool name="xapk_auto_download">$XAPK_AUTO_DOWNLOAD</bool>
             <bool name="xapk_auto_permission">$XAPK_AUTO_PERMISSION</bool>
             <bool name="xapk_auto_reload">$XAPK_AUTO_RELOAD</bool>

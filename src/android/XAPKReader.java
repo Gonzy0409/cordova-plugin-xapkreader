@@ -5,6 +5,7 @@ import org.apache.cordova.CordovaPlugin;
 import org.apache.cordova.CordovaWebView;
 import org.apache.cordova.CallbackContext;
 import org.apache.cordova.PluginResult;
+import java.io.File;
 
 
 import android.content.ContentResolver;
@@ -163,6 +164,30 @@ public class XAPKReader extends CordovaPlugin {
                 cordova.getActivity().startActivity(intent);
             }
         });
+    }
+
+    public Uri remapUri(Uri uri){
+        String url =  uri.toString();
+        int intercept = "file:///android_asset/www/".length();
+        String packageName = cordova.getActivity().getPackageName();
+        int authId = cordova.getActivity().getResources().getIdentifier("xapk_expansion_authority", "string", packageName);
+        int pathsId = cordova.getActivity().getResources().getIdentifier("xapk_url_patterns", "string", packageName);
+
+        if (url.length() >= intercept) {
+            String filename = url.substring(intercept);
+
+            final String AUTHORITY = cordova.getActivity().getResources().getString(authId);
+            String CONTENT_URI = "content://" + AUTHORITY;
+            String patterns = cordova.getActivity().getResources().getString(pathsId);
+
+            String paths[] = patterns.split(",");
+            for (String path: paths){
+                if (url.contains(path)){
+                    return Uri.parse(CONTENT_URI + File.separator + filename);
+                }
+            }
+        }
+        return null;
     }
 
 

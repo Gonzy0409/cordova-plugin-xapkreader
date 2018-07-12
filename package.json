@@ -1,6 +1,6 @@
 {
   "name": "cordova-plugin-xapkreader",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "An Android Cordova plugin that allows android to read expansion files.",
   "cordova": {
     "id": "cordova-plugin-xapkreader",

@@ -1,23 +1,24 @@
 package com.flyingsoftgames.xapkreader;
 
-import org.apache.cordova.CordovaInterface;
-import org.apache.cordova.CordovaPlugin;
-import org.apache.cordova.CordovaWebView;
-import org.apache.cordova.CallbackContext;
-import org.apache.cordova.PluginResult;
-import java.io.File;
-
-
+import android.Manifest;
+import android.app.AlertDialog;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
-import android.os.Bundle;
-import android.net.Uri;
-import org.json.JSONArray;
 import android.content.pm.PackageManager;
-import android.Manifest;
+import android.net.Uri;
 import android.os.Build;
+import android.os.Bundle;
+
+import org.apache.cordova.CallbackContext;
+import org.apache.cordova.CordovaInterface;
+import org.apache.cordova.CordovaPlugin;
+import org.apache.cordova.CordovaWebView;
+import org.apache.cordova.PluginResult;
+import org.json.JSONArray;
 import org.json.JSONException;
+
+import java.io.File;
 
 public class XAPKReader extends CordovaPlugin {
     public static final String ACTION_DOWNLOAD_IF_AVAIlABLE = "downloadExpansionIfAvailable";
@@ -55,7 +56,9 @@ public class XAPKReader extends CordovaPlugin {
                 {"xapk_auto_download", "bool"},
                 {"xapk_auto_permission", "bool"},
                 {"xapk_auto_reload", "bool"},
-                {"xapk_progress_format", "string"}
+                {"xapk_progress_format", "string"},
+                {"xapk_url_patterns", "string"},
+                {"xapk_permission_storage_rationale","string"}
         };
         int curlen = xmlData.length;
         for (int i = 0; i < curlen; i++) {
@@ -80,6 +83,7 @@ public class XAPKReader extends CordovaPlugin {
                 continue;
             }
         }
+        requestStoragePermission();
 
         // Send data to the ContentProvider instance.
         ContentResolver cr = cordova.getActivity().getApplicationContext().getContentResolver();
@@ -103,6 +107,7 @@ public class XAPKReader extends CordovaPlugin {
             // We don't need the permission, or we already have it.
             this.autodownloadIfNecessary();
         }
+
 
         super.initialize(cordova, webView);
     }
@@ -169,16 +174,12 @@ public class XAPKReader extends CordovaPlugin {
     public Uri remapUri(Uri uri){
         String url =  uri.toString();
         int intercept = "file:///android_asset/www/".length();
-        String packageName = cordova.getActivity().getPackageName();
-        int authId = cordova.getActivity().getResources().getIdentifier("xapk_expansion_authority", "string", packageName);
-        int pathsId = cordova.getActivity().getResources().getIdentifier("xapk_url_patterns", "string", packageName);
-
         if (url.length() >= intercept) {
             String filename = url.substring(intercept);
 
-            final String AUTHORITY = cordova.getActivity().getResources().getString(authId);
+            final String AUTHORITY =  bundle.getString("xapk_expansion_authority", "");
             String CONTENT_URI = "content://" + AUTHORITY;
-            String patterns = cordova.getActivity().getResources().getString(pathsId);
+            String patterns =  bundle.getString("xapk_url_patterns", "");
 
             String paths[] = patterns.split(",");
             for (String path: paths){
@@ -190,5 +191,38 @@ public class XAPKReader extends CordovaPlugin {
         return null;
     }
 
+    public void requestStoragePermission()
+    {
+        final int READ_EXTERNAL_STORAGE = 1;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (cordova.getActivity().checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE)
+                    != PackageManager.PERMISSION_GRANTED) {
+
+
+                if (cordova.getActivity().shouldShowRequestPermissionRationale(
+                        Manifest.permission.READ_EXTERNAL_STORAGE)) {
+                    // Display UI and wait for user interaction
+                    AlertDialog.Builder builder = new AlertDialog.Builder(cordova.getActivity());
+// Add the buttons
+                    builder.setMessage( bundle.getString("xapk_permission_storage_rationale", ""););
+                    builder.setPositiveButton("ok", (dialog, id) -> {
+                        // User clicked OK button
+                        cordova.requestPermissions(
+                                XAPKReader.this,
+                                READ_EXTERNAL_STORAGE, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE});
+                    });
+                    AlertDialog dialog = builder.create();
+
+                } else {
+                    cordova.requestPermissions(
+                            this,
+                            READ_EXTERNAL_STORAGE, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE});
+                }
+            } else {
+
+            }
+        }
+
+    }
 
 }

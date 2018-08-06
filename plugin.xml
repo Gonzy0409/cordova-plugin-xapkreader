@@ -42,7 +42,7 @@
         <preference name="XAPK_AUTO_RELOAD" default="false" />
         <preference name="XAPK_PROGRESS_FORMAT" default="percent" />
         <preference name="XAPK_URL_PATTERNS" default="extras" />
-        <preference name="$XAPK_PERMISSION_STORAGE_RATIONALE" 
+        <preference name="XAPK_PERMISSION_STORAGE_RATIONALE" 
          default="Storage permission needed to access content/>"
 
         <source-file src="res/values/xapkreader.xml" target-dir="res/values" />

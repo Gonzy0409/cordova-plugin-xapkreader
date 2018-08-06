@@ -204,7 +204,7 @@ public class XAPKReader extends CordovaPlugin {
                     // Display UI and wait for user interaction
                     AlertDialog.Builder builder = new AlertDialog.Builder(cordova.getActivity());
 // Add the buttons
-                    builder.setMessage( bundle.getString("xapk_permission_storage_rationale", ""););
+                    builder.setMessage( bundle.getString("xapk_permission_storage_rationale", ""));
                     builder.setPositiveButton("ok", (dialog, id) -> {
                         // User clicked OK button
                         cordova.requestPermissions(

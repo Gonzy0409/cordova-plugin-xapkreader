@@ -173,7 +173,8 @@ public class XAPKReader extends CordovaPlugin {
 
     public Uri remapUri(Uri uri){
         String url =  uri.toString();
-        int intercept = "file:///android_asset/www/".length();
+         //int intercept = "file:///android_asset/www/".length(); for relative paths
+        int intercept = url.lastIndexOf('/') + 1; //when all files are in same directory
         if (url.length() >= intercept) {
             String filename = url.substring(intercept);
 

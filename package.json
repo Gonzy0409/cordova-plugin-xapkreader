@@ -10,7 +10,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/kennybky/cordova-xapkreader.git"
+    "url": "https://github.com/gonzy0409/cordova-xapkreader.git"
   },
   "keywords": [
     "cordova",
@@ -21,7 +21,7 @@
   "author": "Adekola Togunloju <adekola@7generationgames.com",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/kennybky/cordova-xapkreader/issues"
+    "url": "https://github.com/gonzy0409/cordova-xapkreader/issues"
   },
-  "homepage": "https://github.com/kennybky/cordova-xapkreader"
+  "homepage": "https://github.com/gonzy0409/cordova-xapkreader"
 }
